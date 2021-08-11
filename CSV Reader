@@ -1,0 +1,36 @@
+package file_reader;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+
+public class App {
+	public static void main(String[] args) {
+		System.out.println("enter a file name !");
+		Scanner s = new Scanner(System.in);
+		String fileContents = null;
+		while (true) {
+			var filename = s.next();
+			try {
+				fileContents = Files.readString(Path.of(filename));
+				break;
+			} catch (IOException e) {
+				System.out.println("The file cannot be read");
+			}
+		}
+
+		try {
+			var lines = fileContents.split("\n");
+			System.out.println("enter line number to read ..");
+			Scanner s1 = new Scanner(System.in);
+			var lineNumber = Integer.parseInt(s1.nextLine());
+			for (var i = 0; i < lineNumber; i++) {
+				System.out.println(lines[i]);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+	}
+}
